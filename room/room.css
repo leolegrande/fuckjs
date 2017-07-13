@@ -1,0 +1,89 @@
+body {
+	background-color: black;
+	color: white;
+	font-family: "Helvetica";
+}
+
+p {
+	font-size: 150%;
+
+}
+
+#room {
+    position: fixed;
+    width: 100%;
+    text-align: center;
+	top: 3%;
+}
+
+#log{
+	border: 1px solid white;
+	vertical-align: middle;
+	text-align: center;
+	position: fixed;
+	width: 30%;
+	height: 60%;
+	top: 15%;
+	left: 50%;
+	margin-left: -15%;
+	overflow: auto;
+}
+
+#log::-webkit-scrollbar-track
+{
+	background-color: black;
+}
+
+#log::-webkit-scrollbar
+{
+	width: 5px;
+	background-color: black;
+}
+
+#log::-webkit-scrollbar-thumb
+{
+	background-color: white;	
+}
+
+#log p {
+	font-size: 100%;
+	padding: 0px 4px 0px 4px;
+}
+
+#inventory{
+    position: fixed;
+	margin: 275px 0% 0% 12%;
+	width: 200px;
+	line-height: 75%;
+}
+
+#items {
+	border: 1px solid white;
+	padding: 0px 0px 0px 4px;
+}
+
+#status {
+    position: fixed;
+	width: 200px;
+	margin: 2% 5% 0% 12%;
+	line-height: 75%;
+}
+
+#stats {
+	border: 1px solid white;
+	padding: 0px 00px 0px 4px;
+}
+
+input[type=text]{
+	font-size: 150%;
+	position: fixed;
+	width: 400px;
+	height: 40px;
+	margin-left: -200px;
+	top: 85%;
+	left: 50%;
+	background-color: black;
+	color:white;
+	border: 1px solid white;
+	padding: 0px 0px 0px 4px;
+}
