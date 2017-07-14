@@ -48,6 +48,8 @@ p {
 #log p {
 	font-size: 100%;
 	padding: 0px 4px 0px 4px;
+    line-height: 90%;
+    text-align: left;
 }
 
 #inventory{

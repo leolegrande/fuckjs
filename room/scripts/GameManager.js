@@ -1,7 +1,7 @@
 var GameManager = new Object();
 
 GameManager.currentRoom = testRoom;
-GameManager.textLog = ["", "", "", "", ""]; //5 most recent text logs
+GameManager.textLog = []//5 most recent text logsj
 
 //accepts string, updates text log with most recent logs
 GameManager.updateLog = function(text) {
@@ -24,7 +24,7 @@ GameManager.updateScreen = function(){
 	console.log("getting textlogs");
     //getting logs
 	for (var i=this.textLog.length-1; i>=0; i--){
-		document.getElementById("log").innerHTML += "<p>" + this.textLog[i] + "</p>";
+		document.getElementById("log").innerHTML += "<p>" + this.textLog[i] + "</p><br>";
 	}
 	var objDiv = document.getElementById("log");
 	objDiv.scrollTop = objDiv.scrollHeight;
