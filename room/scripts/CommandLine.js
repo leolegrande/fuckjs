@@ -58,7 +58,7 @@ CommandLine.look = function(input=""){
         if (itemIndex == -1 && searchableIndex == -1){
             GameManager.updateLog("No " + input + " found.");
         }
-        else if (itemIndex > 0) {
+        else if (itemIndex > -1) {
             GameManager.updateLog(GameManager.currentRoom.getItem(itemIndex).describe());
         }
         else {
