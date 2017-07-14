@@ -10,6 +10,10 @@ GameManager.updateLog = function(text) {
 	console.log("finished updating log");
 }
 
+GameManager.clearLog = function(){
+    this.textLog = [];
+}
+
 GameManager.gameOver = function() {
 	console.log("game over");
 	this.updateLog("you have died.");

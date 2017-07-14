@@ -25,8 +25,13 @@ CommandLine.handleInput = function(input){
 	if (inputs[0] === "take"){
         this.take(inputs[1]);
 	}
-	else if (inputs[0] === "look"){
-        this.look(inputs[1]);
+	else if (inputs[0] === "look" || inputs[0] === "describe" || inputs[0] === "examine" || inputs[0] === "inspect"){
+        if (inputs.length > 1){
+            this.look(inputs[1]);
+        }
+        else {
+            this.look();
+        }
 	}
 	else if(inputs[0] === "die"){
         this.die();
@@ -34,14 +39,32 @@ CommandLine.handleInput = function(input){
     else if(inputs[0] === "search"){
         this.search(inputs[1]);
     }
+    else if(inputs[0] === "clear"){
+        GameManager.clearLog();
+    }
 	else {
 		console.log("I do not understand " + inputs.join(" "));
 	}
 }
 
-CommandLine.look = function(){
-    var description = GameManager.currentRoom.describe();
-    GameManager.updateLog(description);
+CommandLine.look = function(input=""){
+    if (input.length == 0){
+        var description = GameManager.currentRoom.describe();
+        GameManager.updateLog(description);
+    }
+    else {
+        var itemIndex = GameManager.currentRoom.getItemIndex(input);
+        var searchableIndex = GameManager.currentRoom.getSearchableIndex(input);
+        if (itemIndex == -1 && searchableIndex == -1){
+            GameManager.updateLog("No " + input + " found.");
+        }
+        else if (itemIndex > 0) {
+            GameManager.updateLog(GameManager.currentRoom.getItem(itemIndex).describe());
+        }
+        else {
+            GameManager.updateLog(GameManager.currentRoom.getSearchable(searchableIndex).describe());
+        }
+    }
 }
 
 CommandLine.take = function(input){

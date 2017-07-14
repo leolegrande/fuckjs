@@ -11,13 +11,6 @@ function Room(name, items, description, searchables){
 		result = "";
 		result += "<p>" + this.description +"</p>"
 		console.log("room description: " + result);
-		for (var i=0; i<this.items.length; i++){
-			result += this.items[i].describe();
-		}
-		console.log("room + item description: " + result);
-        for (i=0; i<this.searchables.length; i++){
-            result += this.searchables[i].describe();
-        }
 		return result;
 	}
 	this.getItemIndex = function(item){
@@ -40,6 +33,10 @@ function Room(name, items, description, searchables){
     this.removeItem = function(index){
         var itemArr = this.items.splice(index, 1);
         return itemArr[0];
+    }
+
+    this.getItem = function(index){
+        return this.items[index];
     }
 
     this.getSearchable = function(index){

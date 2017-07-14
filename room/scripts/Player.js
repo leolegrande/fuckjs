@@ -55,7 +55,6 @@ Player.addItem = function(item){
 	else {
 		this.inventory[index][1] += 1;
 	}
-	GameManager.updateLog("Took " + item.name);
 }
 
 
