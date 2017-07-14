@@ -1,7 +1,9 @@
 var CommandLine = new Object();
 
+var ENTER_KEYCODE_VALUE = 13;
+
 CommandLine.getInput = function(e){
-	if (e.keyCode === 13){
+	if (e.keyCode === ENTER_KEYCODE_VALUE){
 		console.log("enter was pressed");
 		e.preventDefault();
 		var input = document.getElementById("command").value;

@@ -9,6 +9,36 @@ function Item(itemName, description){
 	}
 }
 
+//
+
+function Container(name, description, items){
+	Item.call(this, name, description);
+	this.items = items();
+	this.describeItems(){
+		var result += "<p>Inside the " + this.name + "is:</p>";
+		for (var i=0; i<this.items.length; i++){
+			var result += this.items[i].describe();
+		}
+		return result;
+	}
+	this.describeFull() = function(){
+		return this.describe() + this.describeItems();
+	}
+}
+
+function Searchable(name, description, items){
+	Container.call(this, name, description, items);
+	this.searched = False;
+	this.describeSearchable = function(){
+		if (searched){
+			return this.describeFull();
+		}
+		else{
+			return this.describe();
+		}
+	}
+}
+
 function Consumable(itemName, description, verbs, heal){
 	Item.call(this, itemName, description);
 	this.heal = heal;
@@ -20,7 +50,7 @@ function Consumable(itemName, description, verbs, heal){
 
 function Drink(itemName, description, verbs, heal, thirst){
 	Consumable.call(this, itemName, description, verbs, heal);
-    this.thirst = thirst;
+	this.thirst = thirst;
 }
 
 function Food(itemName, description, verbs, heal, hunger){
