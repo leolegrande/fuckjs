@@ -1,10 +1,10 @@
 function Item(itemName, description){
-	this.name = itemName;
-	this.description = description;
-        this.toString = function(){
-                return this.name;
-	}
-	this.describe = function(){
+	  this.name = itemName;
+    this.description = description;
+    this.toString = function(){
+        return this.name;
+	  }
+    this.describe = function(){
 		return "<p>" + this.description + "</p>";
 	}
 }

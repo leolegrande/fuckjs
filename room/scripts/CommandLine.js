@@ -10,6 +10,7 @@ CommandLine.getInput = function(e){
 		if (input.length == 0){
 			return false;
 		}
+		GameManager.turn += 1;
 		document.getElementById("command").value="";
 		console.log("handling input: " + input);
 		this.handleInput(input);
@@ -22,8 +23,8 @@ CommandLine.getInput = function(e){
 CommandLine.handleInput = function(input){
 	var lowerInput = input.toLowerCase();
 	var inputs = lowerInput.split(" ");
-	if (inputs[0] === "take"){
-        this.take(inputs[1]);
+	if (inputs[0] === "take" || inputs[0] === "get" || input.startsWith("pick up")){
+        this.take(inputs[inputs.length-1]);
 	}
 	else if (inputs[0] === "look" || inputs[0] === "describe" || inputs[0] === "examine" || inputs[0] === "inspect"){
         if (inputs.length > 1){
@@ -43,7 +44,7 @@ CommandLine.handleInput = function(input){
         GameManager.clearLog();
     }
 	else {
-		console.log("I do not understand " + inputs.join(" "));
+		GameManager.updateLog("I do not understand " + inputs.join(" "));
 	}
 }
 
@@ -56,7 +57,7 @@ CommandLine.look = function(input=""){
         var itemIndex = GameManager.currentRoom.getItemIndex(input);
         var searchableIndex = GameManager.currentRoom.getSearchableIndex(input);
         if (itemIndex == -1 && searchableIndex == -1){
-            GameManager.updateLog("No " + input + " found.");
+            GameManager.updateLog("there is no " + input + " to look at");
         }
         else if (itemIndex > -1) {
             GameManager.updateLog(GameManager.currentRoom.getItem(itemIndex).describe());
@@ -70,7 +71,7 @@ CommandLine.look = function(input=""){
 CommandLine.take = function(input){
     var itemIndex = GameManager.currentRoom.getItemIndex(input);
     if (itemIndex == -1){
-        GameManager.updateLog(input + " not in room!");
+        GameManager.updateLog("cannot take " + input);
     }
     else {
         var takenItem = GameManager.currentRoom.removeItem(itemIndex);

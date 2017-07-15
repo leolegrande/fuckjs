@@ -1,7 +1,8 @@
 var GameManager = new Object();
 
 GameManager.currentRoom = testRoom;
-GameManager.textLog = []//5 most recent text logsj
+GameManager.textLog = [];
+GameManager.turn = 0;
 
 //accepts string, updates text log with most recent logs
 GameManager.updateLog = function(text) {
@@ -45,3 +46,8 @@ GameManager.updateScreen = function(){
     document.getElementById("stats").innerHTML = Player.statsToString();
     console.log("finished updating screen");
 }
+
+GameManager.startGame = function(){
+	this.updateLog(this.currentRoom.describe());
+}
+	
