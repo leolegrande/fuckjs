@@ -27,7 +27,4 @@ function Room(name, description, containers){
         return this.containers[index];
     }
 
-    this.getSearchable = function(index){
-        return this.searchables[index];
-    }
 }

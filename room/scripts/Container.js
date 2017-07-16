@@ -3,6 +3,7 @@ function Container(name, description, items){
     this.name = name;
     this.description = description;
     this.items = items;
+
     this.describeContainer = function(){
         return "<p>" + this.description + "</p>";
     }
