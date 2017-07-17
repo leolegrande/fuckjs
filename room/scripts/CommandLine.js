@@ -37,7 +37,7 @@ CommandLine.handleInput = function(input){
 	else if(inputs[0] === "die"){
         this.die();
 	}
-    else if(inputs[0] === "search"){
+    else if(inputs[0] === "search" || inputs[0] === "open"){
         this.search(inputs[1]);
     }
     else if(inputs[0] === "clear"){
@@ -49,34 +49,32 @@ CommandLine.handleInput = function(input){
 }
 
 CommandLine.look = function(input=""){
-    if (input.length == 0){
+    if (input.length == 0 || input == "room"){
         var description = GameManager.currentRoom.describe();
         GameManager.updateLog(description);
     }
     else {
-        var itemIndex = GameManager.currentRoom.getItemIndex(input);
-        var searchableIndex = GameManager.currentRoom.getSearchableIndex(input);
-        if (itemIndex == -1 && searchableIndex == -1){
-            GameManager.updateLog("there is no " + input + " to look at");
+        var obj = GameManager.currentRoom.getContainer(input);
+        if (obj == null){
+            obj = GameManager.currentRoom.getItem(input);
         }
-        else if (itemIndex > -1) {
-            GameManager.updateLog(GameManager.currentRoom.getItem(itemIndex).describe());
+        if (obj == null){
+            GameManager.updateLog("there's no " + input + " to look at!");
         }
         else {
-            GameManager.updateLog(GameManager.currentRoom.getSearchable(searchableIndex).describe());
+            GameManager.updateLog(obj.describe());
         }
     }
 }
 
 CommandLine.take = function(input){
-    var itemIndex = GameManager.currentRoom.getItemIndex(input);
-    if (itemIndex == -1){
-        GameManager.updateLog("cannot take " + input);
+    var item = GameManager.currentRoom.removeItem(input);
+    if (item == null){
+        GameManager.updateLog("there is no " + input + " to take!");
     }
     else {
-        var takenItem = GameManager.currentRoom.removeItem(itemIndex);
-        Player.addItem(takenItem);
-        GameManager.updateLog("took " + takenItem.name);
+        Player.addItem(item);
+        GameManager.updateLog("took " + input);
     }
 }
 
@@ -85,13 +83,12 @@ CommandLine.die = function(){
 }
 
 CommandLine.search = function(input){
-    var index = GameManager.currentRoom.getSearchableIndex(input);
-    if (index == -1){
-        GameManager.updateLog(input + " not in room!");
+    var container = GameManager.currentRoom.getContainer(input);
+    if (container instanceof Searchable){
+        container.search();
+        GameManager.updateLog(container.describeItems());
     }
     else {
-        var searchable = GameManager.currentRoom.getSearchable(index);
-        searchable.search();
-        GameManager.updateLog(searchable.describeItems());
+        GameManager.updateLog("cannot search " + input);
     }
 }

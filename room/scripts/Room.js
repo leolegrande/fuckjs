@@ -14,17 +14,44 @@ function Room(name, description, containers){
         console.log("room description: " + result);
         return result;
     }
+
     this.getContainerIndex = function(container){
-        for (var i=0; i<this.length; i++){
-            if (this.searchables[i].name === searchable){
+        for (var i=0; i<this.containers.length; i++){
+            if (this.containers[i].name === container){
                 return i;
             }
         }
         return -1;
     }
 
-    this.getContainer = function(index){
-        return this.containers[index];
+    this.getContainer = function(container){
+        var index = this.getContainerIndex(container);
+        if (index == -1){
+            return null;
+        }
+        else {
+            return this.containers[index];
+        }
     }
 
+    this.getItem = function(item){
+        var index;
+        for (var i=0; i<this.containers.length; i++){
+            item = this.containers[i].getItem(item);
+            if (item != null){
+                return item;
+            }
+        }
+        return null;
+    }
+    this.removeItem = function(input){
+        var item;
+        for (var i=0; i<this.containers.length; i++){
+            item = this.containers[i].getItem(input);
+            if (item != null){
+                return this.containers[i].removeItem(input);
+            }
+        }
+        return null;
+    }
 }
