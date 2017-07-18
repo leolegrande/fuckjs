@@ -16,4 +16,4 @@ var fireplace = new Searchable("fireplace", "an extinguished fireplace sits, alm
 var chest = new Searchable("chest", "a royal chest rests within a dark corner of the room. the handle is etched with claw marks.", [sword]);
 
 //room
-var testRoom = new Room("a dark cabin", "you are in the main room of a log cabin. there is an extingushed fireplace at the back of the room. a wooden table sits in the center. there is also a chest sitting in a dark corner.", [table, fireplace, chest]);
+var testRoom = new Room("a dark cabin", "you are in the main room of a log cabin.</p><p> there is an extingushed fireplace at the back of the room.</p><p> a wooden table sits in the center.</p><p> there is also a chest sitting in a dark corner.", [table, fireplace, chest]);

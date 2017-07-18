@@ -14,7 +14,10 @@ p {
     width: 100%;
     text-align: center;
 	top: 3%;
+	opacity: 0;
+	transition: opacity 2s;
 }
+
 
 #log{
 	
@@ -27,6 +30,16 @@ p {
 	left: 50%;
 	margin-left: -15%;
 	overflow: auto;
+	font-size: 75%;
+	padding: 0px 4px 0px 4px;
+	line-height: 150%;
+	text-align: left;
+	opacity:0;
+	transition: opacity 2s;
+}
+
+#log p{
+	text-align: center;
 }
 
 #log::-webkit-scrollbar-track
@@ -45,16 +58,9 @@ p {
 	background-color: white;	
 }
 
-#log p {
-	font-size: 100%;
-	padding: 0px 4px 0px 4px;
-    line-height: 90%;
-    text-align: left;
-}
-
 #inventory{
     position: fixed;
-	margin: 275px 0% 0% 12%;
+	margin: 100px 0% 0% 12%;
 	width: 200px;
 	line-height: 75%;
 }
@@ -76,6 +82,20 @@ p {
 	padding: 0px 00px 0px 4px;
 }
 
+#help {
+	opacity: .6;
+	font-size: 100%;
+	position: fixed;
+	width: 300px;
+	height: 40px;
+	margin-left: -150px;
+	top: 80%;
+	left: 50%;
+	text-align: center;
+	opacity: 0;
+	transition: opacity 4s;
+}
+
 input[type=text]{
 	font-size: 150%;
 	position: fixed;
@@ -89,3 +109,7 @@ input[type=text]{
 	border: 1px solid white;
 	padding: 0px 0px 0px 4px;
 }
+
+#command {
+	opacity: 0;
+	transition: opacity 2s;

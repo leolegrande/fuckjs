@@ -10,12 +10,13 @@ CommandLine.getInput = function(e){
 		if (input.length == 0){
 			return false;
 		}
-		GameManager.turn += 1;
+		GameManager.turn++;
 		document.getElementById("command").value="";
 		console.log("handling input: " + input);
 		this.handleInput(input);
 		console.log("updating screen");
 		GameManager.updateScreen();
+		document.cookie="cookiename=Foo Bar";
 	}
 	return false;
 }
@@ -23,28 +24,49 @@ CommandLine.getInput = function(e){
 CommandLine.handleInput = function(input){
 	var lowerInput = input.toLowerCase();
 	var inputs = lowerInput.split(" ");
-	if (inputs[0] === "take" || inputs[0] === "get" || input.startsWith("pick up")){
-        this.take(inputs[inputs.length-1]);
-	}
-	else if (inputs[0] === "look" || inputs[0] === "describe" || inputs[0] === "examine" || inputs[0] === "inspect"){
-        if (inputs.length > 1){
-            this.look(inputs[1]);
-        }
-        else {
-            this.look();
-        }
-	}
-	else if(inputs[0] === "die"){
-        this.die();
-	}
-    else if(inputs[0] === "search" || inputs[0] === "open"){
-        this.search(inputs[1]);
-    }
-    else if(inputs[0] === "clear"){
-        GameManager.clearLog();
-    }
-	else {
-		GameManager.updateLog("I do not understand " + inputs.join(" "));
+	var verb = inputs[0];
+	var noun = inputs[inputs.length-1];	
+	switch(verb){
+	//take
+		case "take":
+		case "get":
+		case "pick":
+       		 	this.take(noun);
+			break;
+	//look
+		case "look":
+		case "describe":
+		case "examine":
+		case "inspect":
+			if (inputs.length > 1){
+				this.look(noun);
+			}
+			else {
+				this.look();
+			}
+			break;	
+
+	//die
+		case "die":
+			this.die();
+			break;
+		
+	//search
+		case "search":
+		case "open":
+			this.search(noun);
+			break;
+	//clear
+		case "clear": 
+			GameManager.clearLog();
+			break;
+	//help
+		case "help":
+			this.help();
+			break;
+	//default
+		default:
+		GameManager.updateLog("I do not understand " + lowerInput);
 	}
 }
 
@@ -91,4 +113,9 @@ CommandLine.search = function(input){
     else {
         GameManager.updateLog("cannot search " + input);
     }
+}
+
+CommandLine.help = function(){
+	var help = "<p>Command List:</p><p>describe (noun)</p><p>search (noun)</p><p>take (noun)</p>";
+	GameManager.updateLog(help);
 }
