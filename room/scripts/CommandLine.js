@@ -107,8 +107,13 @@ CommandLine.die = function(){
 CommandLine.search = function(input){
     var container = GameManager.currentRoom.getContainer(input);
     if (container instanceof Searchable){
-        container.search();
-        GameManager.updateLog(container.describeItems());
+        if (!container.searched){
+            container.search();
+            GameManager.updateLog(container.describeSearch());
+        }
+        else {
+            GameManager.updateLog(container.describeItems());
+        }
     }
     else {
         GameManager.updateLog("cannot search " + input);
@@ -116,6 +121,6 @@ CommandLine.search = function(input){
 }
 
 CommandLine.help = function(){
-	var help = "<p>Command List:</p><p>describe (noun)</p><p>search (noun)</p><p>take (noun)</p>";
-	GameManager.updateLog(help);
+    var help = "<p>Command List:</p><p>describe (noun)</p><p>search (noun)</p><p>take (noun)</p>";
+    GameManager.updateLog(help);
 }

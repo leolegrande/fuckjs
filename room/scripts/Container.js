@@ -49,10 +49,10 @@ function Container(name, description, items){
     }
 }    
 //Contains items, but must be searched first to describe and interact with items
-function Searchable(name, description, items){
+function Searchable(name, description, searchDesc, items){
     Container.call(this, name, description, items);
     this.searched = false;
-
+    this.search_description = searchDesc;
     this.describe = function(){
         if (this.searched){
             return this.describeContainer() + this.describeItems();
@@ -61,10 +61,16 @@ function Searchable(name, description, items){
             return this.describeContainer();
         }
     }
+
     this.search = function(){
         this.searched = true;
         return false;
     }
+
+    this.describeSearch = function(){
+        return "<p>" + this.search_description + "</p>" + this.describeItems();
+    }
+
     this.getItemIndex = function(item){
         if (this.searched){
             for (var i=0; i<this.items.length; i++){
@@ -79,3 +85,4 @@ function Searchable(name, description, items){
         }
     }
 }
+
