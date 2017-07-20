@@ -34,7 +34,6 @@ GameManager.updateScreen = function(){
     //getting inventory
 	this.pullInventory();
 	this.pullHelp();
-
 }
 
 
@@ -103,6 +102,11 @@ GameManager.changeHelp = function(str=""){
 GameManager.startGame = function(){
 	this.updateScreen();
 	this.fadeText("log", 3000, 1);
-	this.fadeText("command", 9000, 1);
-	this.fadeText("help", 13000, .4);
+	this.fadeText("command", 7000, 1);
+}
+
+GameManager.transitionRoom = function(room){
+	this.clearLog();
+	this.currentRoom = room;
+	this.updateLog(this.currentRoom.describe());
 }

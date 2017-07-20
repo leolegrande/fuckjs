@@ -2,7 +2,23 @@ function Room(name, description, containers){
     this.name = name;
     this.description = description;
     this.containers = containers;
+    this.exits = {
+        "n": null,
+        "s": null,
+        "e": null,
+        "w": null
+    }
 
+    this.setExits = function(ex){
+        this.exits["n"] = ex[0];
+        this.exits["s"] = ex[1];
+        this.exits["e"] = ex[2];
+        this.exits["w"] = ex[3];
+    }
+
+    this.getExit = function(ex){
+	return this.exits[ex];
+    }
     this.toString = function(){
         return this.name;
     }

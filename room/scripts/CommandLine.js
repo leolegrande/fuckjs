@@ -64,6 +64,33 @@ CommandLine.handleInput = function(input){
 		case "help":
 			this.help();
 			break;
+	//movement
+	
+	//north
+		case "north":
+		case "n":
+			this.go("n");
+			break;
+	//south
+		case "south":
+		case "s":
+			this.go("s");
+			break;
+	//east
+		case "east":
+		case "e":
+			this.go("e");
+			break;
+	//west
+		case "west":
+		case "w":
+			this.go("w");
+			break;
+	//go
+		case "go":
+			this.go(noun);
+			break;
+	
 	//default
 		default:
 		GameManager.updateLog("I do not understand " + lowerInput);
@@ -123,4 +150,17 @@ CommandLine.search = function(input){
 CommandLine.help = function(){
     var help = "<p>Command List:</p><p>describe (noun)</p><p>search (noun)</p><p>take (noun)</p>";
     GameManager.updateLog(help);
+}
+
+CommandLine.go = function(ex){
+	console.log("going " + ex);
+	var nextRoom = GameManager.currentRoom.getExit(ex);
+	if (nextRoom == null){
+		console.log("exit is null");
+		GameManager.updateLog("cannot go that way!");
+	}
+	else {
+		console.log("exit is " + nextRoom.name);
+		GameManager.transitionRoom(nextRoom);
+	}
 }
