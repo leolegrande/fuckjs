@@ -1,0 +1,22 @@
+commands to impletement:
+
+use <item> on <item>
+	ie: use key on chest, use scissors on rope
+
+unlock <container> with <item>
+	ie: unlock chest with key
+
+go to <exit>
+	ie: go to bedroom
+
+
+items to implement:
+
+readables
+tools
+moveables (move/push/pull rug/dresser/etc)
+
+other stuff:
+
+find a better way to get rooms other than names
+- item_id? that'd probably be better

@@ -1,6 +1,10 @@
 var CommandLine = new Object();
 
 var ENTER_KEYCODE_VALUE = 13;
+var UP_ARROW_KEYCODE_VALUE = 38;
+var DOWN_ARROW_KEYCODE_VALUE = 40;
+CommandLine.log = [];
+CommandLine.index = 0;
 
 CommandLine.getInput = function(e){
 	if (e.keyCode === ENTER_KEYCODE_VALUE){
@@ -13,10 +17,35 @@ CommandLine.getInput = function(e){
 		GameManager.turn++;
 		document.getElementById("command").value="";
 		console.log("handling input: " + input);
+		this.log.push(input);
+		this.index = this.log.length;
 		this.handleInput(input);
 		console.log("updating screen");
 		GameManager.updateScreen();
-		document.cookie="cookiename=Foo Bar";
+	}
+	else if (e.keyCode === UP_ARROW_KEYCODE_VALUE){
+		this.index--;
+		if (this.log.length == 0){
+			return false;
+		}
+		if (this.index < 0){
+			this.index = 0;
+		}
+		console.log("up was pressed");
+		e.preventDefault();
+		document.getElementById("command").value = this.log[this.index];
+	}
+	else if (e.keyCode === DOWN_ARROW_KEYCODE_VALUE){
+		this.index++;
+		if (this.log.length == 0){
+			return false;
+		}
+		if (this.index >= this.log.length){
+			this.index = this.log.length;
+			document.getElementById("command").value = "";
+			return false;
+		}
+		document.getElementById("command").value = this.log[this.index];
 	}
 	return false;
 }
@@ -38,6 +67,7 @@ CommandLine.handleInput = function(input){
 		case "describe":
 		case "examine":
 		case "inspect":
+		case "ls":
 			if (inputs.length > 1){
 				this.look(noun);
 			}
@@ -49,6 +79,11 @@ CommandLine.handleInput = function(input){
 	//die
 		case "die":
 			this.die();
+			break;
+		case "kill":
+			if (noun == "self"){
+				this.die();
+			}
 			break;
 		
 	//search
@@ -88,12 +123,37 @@ CommandLine.handleInput = function(input){
 			break;
 	//go
 		case "go":
-			this.go(noun);
+		case "cd":
+			switch(noun){
+				case "north":
+					this.go("n");
+					break;
+				case "south":
+					this.go("s");
+					break;
+				case "east":
+					this.go("e");
+					break;
+				case "west":
+					this.go("w");
+					break;
+				default:
+					this.go(noun);
+					break;
+			}
+			break;
+	//unlock
+		case "unlock":
+			this.unlock(noun);
+			break;
+	//override
+		case "override":
+			this.override(noun);
 			break;
 	
 	//default
 		default:
-		GameManager.updateLog("I do not understand " + lowerInput);
+			GameManager.updateLog("I do not understand " + lowerInput);
 	}
 }
 
@@ -142,6 +202,18 @@ CommandLine.search = function(input){
             GameManager.updateLog(container.describeItems());
         }
     }
+    else if (container instanceof Unlockable){
+	if (container.locked){
+            GameManager.updateLog(container.describeLocked());
+	}
+	else if (!container.searched){
+		container.search();
+		GameManager.updateLog(container.describeSearch());
+	}
+	else {
+		GameManager.updateLog(container.describeSearch());
+	}
+    }
     else {
         GameManager.updateLog("cannot search " + input);
     }
@@ -163,4 +235,26 @@ CommandLine.go = function(ex){
 		console.log("exit is " + nextRoom.name);
 		GameManager.transitionRoom(nextRoom);
 	}
+}
+
+CommandLine.unlock = function(input){
+	var container = GameManager.currentRoom.getContainer(input);
+	if (container instanceof Unlockable){
+		if (container.locked){
+			GameManager.updateLog(container.describeLocked());
+		}
+		else {
+			GameManager.updateLog(input + " is already unlocked");
+		}
+	}
+	else {
+		GameManager.updateLog("cannot unlock " + input);
+	}
+}
+
+CommandLine.override = function(input){
+	var container = GameManager.currentRoom.getContainer(input);
+	container.unlock();
+	GameManager.updateLog(input + " overridden");
+	GameManager.updateLog(container.describeUnlock());
 }

@@ -64,7 +64,6 @@ function Searchable(name, description, searchDesc, items){
 
     this.search = function(){
         this.searched = true;
-        return false;
     }
 
     this.describeSearch = function(){
@@ -86,3 +85,28 @@ function Searchable(name, description, searchDesc, items){
     }
 }
 
+function Unlockable(name, description, searchDesc, lockedDesc, unlockDesc, items){
+	Searchable.call(this, name, description, searchDesc, items);
+	this.locked_description = lockedDesc;
+	this.unlock_description = unlockDesc;
+	this.locked = true;
+	this.unlock = function(){
+		this.locked = false;
+	}
+	
+	this.describeLocked = function(){
+		return "<p>" + this.locked_description + "</p>";
+	}
+
+	this.describeUnlock = function(){
+		return "<p>" + this.unlock_description + "</p>";
+	}
+	this.describe = function(){
+		if (this.locked || !this.searched){
+			return this.describeContainer();
+		}
+		else {
+			return this.describeContainer() + this.describeItems();
+		}
+	}
+}

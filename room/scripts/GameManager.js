@@ -5,12 +5,28 @@ GameManager.textLog = ["you wake up in a dark room."];
 GameManager.turn = 0;
 GameManager.helpText = "";
 GameManager.cookie = document.cookie="cookiename=Foo Bar";
+GameManager.commandLog = [];
+GameManager.commandIndex = 0;
 
 //accepts string, updates text log with most recent logs
 GameManager.updateLog = function(text) {
 	console.log("updating log");
 	this.textLog.unshift(text);
 	console.log("finished updating log");
+}
+
+GameManager.getCommands = function(){
+	return this.commandLog;
+}
+
+GameManager.getCommandIndex = function(){
+	return this.commandIndex;
+}
+
+GameManager.updateCommands = function(text){
+	console.log("updating commands");
+	this.commandLog.push(text);
+	console.log("finished updating commands");
 }
 
 GameManager.clearLog = function(){
@@ -20,6 +36,9 @@ GameManager.clearLog = function(){
 GameManager.gameOver = function() {
 	console.log("game over");
 	this.updateLog("you have died.");
+	document.getElementById("command").disabled = true;
+	document.body.style.backgroundColor = "#8b0000";
+	
 }
 
 //displays all data on the screen
@@ -98,6 +117,11 @@ GameManager.changeHelp = function(str=""){
 	this.fadeText("help", 5000, .4);
 }
 
+GameManager.debugStart = function(){
+	this.updateScreen();
+	this.fadeText("log", 1, 1);
+	this.fadeText("command", 1, 1);
+}
 
 GameManager.startGame = function(){
 	this.updateScreen();

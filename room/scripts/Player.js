@@ -2,6 +2,7 @@ var Player = new Object();
 
 Player.name = "grandspaghetti";
 Player.inventory = [];
+Player.health = 100;
 
 // returns index of item in inventory, return -1 if not found
 Player.itemIndex = function(item){

@@ -23,6 +23,13 @@ var fireSearch = "sifting through the soot, you find a few hidden items.";
 var bedSearch = "you get on all floors and peer underneath the bed. two beady eyes look back at you, and your heart drops.</p><p>after a fearful moment, you realize that it's just a teddy bear.";
 var chestSearch = "the chest creaks as you lift the top, releasing a musty smell.";
 
+//locked desc
+var chestLocked = "you try to open the chest with no avail. a rusted keyholes stares at you and cackles.";
+
+
+//unlock desc
+var chestUnlock = "you hear a satisfying click as you turn the key in the chest's rusted hole.";
+
 //items
 var water = new Water(waterDesc);
 var bread = new Food("bread", breadDesc, 10, 15);
@@ -38,7 +45,9 @@ var armoire = new Item("armoire", armoireDesc, []);
 //searchables
 var fireplace = new Searchable("fireplace", fireplaceDesc, fireSearch, [key, coin]);
 var bed = new Searchable("bed", bedDesc, bedSearch, [bear]);
-var chest = new Searchable("chest", chestDesc, chestSearch, [sword]);
+
+//unlockables
+var chest = new Unlockable("chest", chestDesc, chestSearch, chestLocked, chestUnlock, [sword]); 
 
 //room
 var testRoom = new Room("a dark cabin", roomDesc, [table, fireplace, chest]);

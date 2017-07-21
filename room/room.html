@@ -20,11 +20,11 @@
         </div>
         <div id="log"></div>
 	<div id="help"></div>
-        <input type="text" id="command" placeholder="enter command" autofocus=autofocus onkeypress="CommandLine.getInput(event);"/>
+        <input type="text" id="command" placeholder="enter command" autofocus=autofocus  onkeydown="CommandLine.getInput(event);"/>
     </body>
     <link rel="stylesheet" type="text/css" href="room.css" media="screen" />
 	  <script>
-		 GameManager.startGame();
+		 GameManager.debugStart();
 		 GameManager.updateScreen();
 	  </script>
 	</div>
